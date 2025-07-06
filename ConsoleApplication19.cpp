@@ -94,17 +94,10 @@ void SearchDirectory()
 		cout << "Имя папки: " << fileinfo.name << endl;
 		cout << "Атрибуты: " << fileinfo.attrib << endl;
 
-		ctime_s(timeBuff, sizeof(timeBuff), &fileinfo.time_access);
-		string timeStr(timeBuff);
-		cout << "Время: " << timeStr << endl;
 
 		ctime_s(timeBuff, sizeof(timeBuff), &fileinfo.time_create);
 		string timeStr2(timeBuff);
 		cout << "Время создания: " << timeStr2 << endl;
-
-		ctime_s(timeBuff, sizeof(timeBuff), &fileinfo.time_write);
-		string timeStr3(timeBuff);
-		cout << "Время изменения: " << timeStr3 << endl;
 
 
 		cout << "Размер папка: " << fileinfo.size << endl << endl;
@@ -114,6 +107,24 @@ void SearchDirectory()
 
 }
 
+
+void CreateDirectory()
+{
+	string name;
+	cout << "Введите имя создаваемой папки: " << endl;
+	cin.ignore();
+	getline(cin, name);
+
+	if (_mkdir(name.c_str()) == -1)
+	{
+		cout << "Ошибка! Проверьте имя папки" << endl;
+	}
+	else
+	{
+		cout << "Папка успешно создана" << endl;
+	}
+
+}
 
 int main()
 {
@@ -126,6 +137,7 @@ int main()
 		cout << "1 - Переименовать папку" << endl;
 		cout << "2 - Удалить папку" << endl;
 		cout << "3 - Поиск папки" << endl;
+		cout << "4 - Создать папку" << endl;
 		cout << "0 - Выход" << endl;
 
 		cin >> ch;
@@ -145,6 +157,11 @@ int main()
 		case '3':
 		{
 			SearchDirectory();
+			break;
+		}
+		case '4':
+		{
+			CreateDirectory();
 			break;
 		}
 		}
